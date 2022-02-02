@@ -1,31 +1,10 @@
-import "@fontsource/cairo/400.css";
-import "@fontsource/cairo/700.css";
-import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
-import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-
-const theme = createTheme({
-    direction: "rtl",
-
-    typography: {
-        fontFamily: "Cairo",
-    },
-});
-// Create rtl cache
-const cacheRtl = createCache({
-    key: "muirtl",
-    stylisPlugins: [rtlPlugin],
-});
+import ThemeRTL from "../utils/ThemeRTL";
 
 function MyApp({ Component, pageProps }) {
     return (
-        <CacheProvider value={cacheRtl}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Component {...pageProps} />
-            </ThemeProvider>
-        </CacheProvider>
+        <ThemeRTL>
+            <Component {...pageProps} />
+        </ThemeRTL>
     );
 }
 
