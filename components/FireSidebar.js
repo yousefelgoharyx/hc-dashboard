@@ -16,12 +16,31 @@ import {
     SportsScoreRounded,
     Dashboard,
 } from "@mui/icons-material";
+import Link from "next/link";
+import ActiveLink from "./ActiveLink";
+import { useRouter } from "next/router";
 const data = [
-    { icon: <NewspaperRounded />, label: "الاخبار" },
-    { icon: <SportsSoccerRounded />, label: "الالعاب الرياضية" },
-    { icon: <PersonPinCircleRounded />, label: "شخصيات مؤثرة" },
-    { icon: <RestaurantRounded />, label: "المطاعم - اماكن عامة" },
-    { icon: <SportsScoreRounded />, label: "المباريات القادمة" },
+    { icon: <NewspaperRounded />, label: "الاخبار", href: "/" },
+    {
+        icon: <SportsSoccerRounded />,
+        label: "الالعاب الرياضية",
+        href: "/sports",
+    },
+    {
+        icon: <PersonPinCircleRounded />,
+        label: "شخصيات مؤثرة",
+        href: "/people",
+    },
+    {
+        icon: <RestaurantRounded />,
+        label: "المطاعم - اماكن عامة",
+        href: "/resturants",
+    },
+    {
+        icon: <SportsScoreRounded />,
+        label: "المباريات القادمة",
+        href: "/matches",
+    },
 ];
 
 const FireNav = styled(List)({
@@ -47,6 +66,7 @@ const mobileStyles = {
 };
 
 export default function CustomizedList() {
+    const { asPath } = useRouter();
     return (
         <Box sx={{ display: "flex", ...mobileStyles }}>
             <Paper elevation={0} sx={{ maxWidth: 300, width: 250 }}>
@@ -93,25 +113,28 @@ export default function CustomizedList() {
                             />
                         </ListItem>
                         {data.map((item) => (
-                            <ListItemButton
-                                key={item.label}
-                                sx={{
-                                    py: 1,
-                                    minHeight: 32,
-                                    color: "rgba(255,255,255,.8)",
-                                }}
-                            >
-                                <ListItemIcon sx={{ color: "inherit" }}>
-                                    {item.icon}
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={item.label}
-                                    primaryTypographyProps={{
-                                        fontSize: 14,
-                                        fontWeight: "medium",
+                            <Link href={item.href}>
+                                <ListItemButton
+                                    selected={asPath === item.href}
+                                    key={item.label}
+                                    sx={{
+                                        py: 1,
+                                        minHeight: 32,
+                                        color: "rgba(255,255,255,.8)",
                                     }}
-                                />
-                            </ListItemButton>
+                                >
+                                    <ListItemIcon sx={{ color: "inherit" }}>
+                                        {item.icon}
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={item.label}
+                                        primaryTypographyProps={{
+                                            fontSize: 14,
+                                            fontWeight: "medium",
+                                        }}
+                                    />
+                                </ListItemButton>
+                            </Link>
                         ))}
                     </Box>
                 </FireNav>
