@@ -1,9 +1,14 @@
+import { AnimatePresence } from "framer-motion";
 import ThemeRTL from "../utils/ThemeRTL";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
+    const url = `https://wallis.dev${router.route}`;
+
     return (
         <ThemeRTL>
-            <Component {...pageProps} />
+            <AnimatePresence exitBeforeEnter initial={false}>
+                <Component {...pageProps} canonical={url} key={url} />
+            </AnimatePresence>
         </ThemeRTL>
     );
 }
